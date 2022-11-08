@@ -47,7 +47,7 @@
                   <form class="timestamp" action="/attendance/start" method="post">
                     @csrf
 
-                    @if(!isset($is_shift_start))
+                    @if(!session('is_shift_start') == 1)
                     <input type="submit" value="勤務開始" class="fw-bold">
                     @else
                     <p>
@@ -65,13 +65,15 @@
                 <div class="card-body py-5">
                   <form class="timestamp" action="/attendance/end" method="post">
                     @csrf
-                    @if(!isset($is_shift_end))
+
+                    @if(!session('is_shift_end') == 1)
                     <input type="submit" value="勤務終了" class="fw-bold">
                     @else
                     <p>
                       <font color="gray" class="fw-bold">勤務終了</font>
                     </p>
                     @endif
+
                   </form>
                 </div>
               </div>
@@ -84,13 +86,15 @@
                 <div class="card-body py-5">
                   <form class="timestamp" action="/break/start" method="post">
                     @csrf
-                    @if(!isset($is_rest_start))
+
+                    @if(!session('is_rest_start') == 1)
                     <input type="submit" value="休憩開始" class="fw-bold">
                     @else
                     <p>
                       <font color="gray" class="fw-bold">休憩開始</font>
                     </p>
                     @endif
+
                   </form>
                 </div>
               </div>
@@ -102,13 +106,15 @@
                 <div class="card-body py-5">
                   <form class="timestamp" action="/break/end" method="post">
                     @csrf
-                    @if(!isset($is_rest_end))
+
+                    @if(!session('is_rest_end') == 1)
                     <input type="submit" value="休憩終了" class="fw-bold">
                     @else
                     <p>
                       <font color="gray" class="fw-bold">休憩終了</font>
                     </p>
                     @endif
+
                   </form>
                 </div>
               </div>

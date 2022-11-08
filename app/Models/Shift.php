@@ -53,12 +53,12 @@ class Shift extends Model
             $restHours = floor($sum / 3600);
             $restMinutes = floor(($sum / 60) % 60);
             $restSeconds = floor($sum % 60);
-            $sum = sprintf("%2d:%02d:%02d", $restHours, $restMinutes, $restSeconds);
+            $sum = sprintf("%02d:%02d:%02d", $restHours, $restMinutes, $restSeconds);
 
-            $workHours = floor($workingTime / 60);
+            $workHours = floor($workingTime / 3600);
             $workMinutes = floor(($workingTime / 60) % 60);
             $workSeconds = floor($workingTime % 60);
-            $workingTime = sprintf("%2d:%02d:%02d", $workHours, $workMinutes, $workSeconds);
+            $workingTime = sprintf("%02d:%02d:%02d", $workHours, $workMinutes, $workSeconds);
 
             $shifts[$index]->work_time = $workingTime;
             $shifts[$index]->rest_sum = $sum;

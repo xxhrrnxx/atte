@@ -27,35 +27,6 @@ class AttendanceController extends Controller
         if ($shift->start_time) {
             return view('home')->with(['is_shift_start' => true]);
         }
-
-        if ($shift->end_time) {
-            var_dump('aaa');
-            return view('home')->with(
-                [
-                    'is_shift_start' => true,
-                    'is_shift_end' => true,
-                    'is_rest_start' => true,
-                    'is_rest_end' => true,
-                ]
-            );
-        }
-
-        $rest = Rest::whereNull('end_time')->first();
-
-        if ($oldTimestamp->start_time) {
-            if (isset($rest)) {
-                return view('home')->with(['is_rest_end' => true]);
-            } else {
-                return view('home')->with(
-                    [
-                        'is_rest_start' => true,
-                        'is_shift_end' => true
-                    ]
-                );
-            }
-        }
-
-        return view('home');
     }
 
     public function timein()
@@ -73,7 +44,13 @@ class AttendanceController extends Controller
             ]
         );
 
-        return redirect('/')->with('message', '出勤打刻が完了しました');
+        return redirect('/')->with([
+            'message' => '出勤打刻が完了しました',
+            'is_shift_start' => true,
+            'is_shift_end' => false,
+            'is_rest_start' => false,
+            'is_rest_end' => true,
+        ]);
     }
 
     public function timeout()
@@ -83,16 +60,19 @@ class AttendanceController extends Controller
         $date = $dt->toDateString();
         $time = $dt->toTimeString();
 
-        $endTime = Shift::where('user_id', $id)->latest()->first()->update(
+        Shift::where('user_id', $id)->latest()->first()->update(
             [
                 'end_time' => $time
             ]
         );
         
-        return redirect('/')->with(
-            [
-                'message', '退勤打刻が完了しました'
-            ]);
+        return redirect('/')->with([
+            'message' => '退勤打刻が完了しました',
+            'is_shift_start' => true,
+            'is_shift_end' => true,
+            'is_rest_start' => true,
+            'is_rest_end' => true,
+        ]);
     }
 
     public function attendance(request $request)

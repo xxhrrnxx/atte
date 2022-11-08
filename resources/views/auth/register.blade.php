@@ -14,11 +14,6 @@
 <x-guest-layout>
     <x-auth-card>
     <p class="text-center fs-4 fw-bold mb-4">会員登録</p>
-        <!-- <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot> -->
 
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
